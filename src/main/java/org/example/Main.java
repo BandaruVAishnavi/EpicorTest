@@ -4,10 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -22,7 +19,7 @@ public class Main {
                 "before", "if", "though", "as", "than", "that", "though", "till", "unless", "until", "when", "whenever", "where", "whereas", "wherever", "whether", "while"
                 )));
 
-        System.out.println("words count : " + wordsToExclude.size());
+        System.out.println("excluding words count : " + wordsToExclude.size());
         System.out.println(file.exists());
 
 
@@ -35,11 +32,39 @@ public class Main {
             int wordCount = words.size();
             System.out.println("a. Total word count: " + wordCount);
 
+            // Count the frequency of each word and get the top 5 words
+            Map<String, Integer> wordFrequency = calculateWordFrequencies(words);
+            List<Map.Entry<String, Integer>> topFiveWords = getTop5Words(wordFrequency);
+
+            //TODO: This is counting "s" from words like one's, artist's, man's etc. Need to fix this.
+            // One solution is to add the string "s" in wordsToExclude set. But this is not a good solution.
+            // Another solution is to remove the apostrophe and club such words as ones, artists while processing the file. But this will change the meaning of the word.
+            // Need to find a better solution.
+            System.out.println("b. Top 5 most frequent words with counts: ");
+            topFiveWords.forEach(entry -> System.out.println(entry.getKey() + ": " + entry.getValue()));
 
         } catch (Exception e) {
             System.out.println("Error reading file: " + e.getMessage());
         }
 
+    }
+
+    //calculate top 5 words based on the frequency by sorting the list of words
+    private static List<Map.Entry<String, Integer>> getTop5Words(Map<String, Integer> wordFrequency) {
+        return wordFrequency
+                .entrySet()
+                .stream()
+                .sorted((a,b) -> b.getValue().compareTo(a.getValue()))
+                .limit(5)
+                .toList();
+    }
+
+    private static Map<String, Integer> calculateWordFrequencies(List<String> words) {
+        Map<String, Integer> frequencyMap = new HashMap<>();
+        for(String word: words) {
+            frequencyMap.put(word, frequencyMap.getOrDefault(word, 0) + 1);
+        }
+        return frequencyMap;
     }
 
     private static List<String> readFileAndProcess(File file, Set<String> wordsToExclude) throws IOException {
