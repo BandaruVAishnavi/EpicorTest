@@ -86,16 +86,12 @@ public class Main {
             fileText.append(" ");
         }
 
-        // Split the fileText into words and convert to lowercase
+        // Split the fileText into words and convert to lowercase : using lowercase to avoid case sensitivity [since the requirement is to treat words as case-insensitive]
         String[] words = fileText.toString().toLowerCase().split("[^a-zA-Z]+");
 
-        // Filter out the words that are in the wordsToExclude set
-        List<String> filteredWords = Arrays.stream(words)
+        // Filter out and return the words that are in the wordsToExclude set
+        return Arrays.stream(words)
                 .filter(word -> !word.isEmpty() && !wordsToExclude.contains(word))
                 .toList();
-
-//        System.out.println(filteredWords);
-
-        return filteredWords;
     }
 }
