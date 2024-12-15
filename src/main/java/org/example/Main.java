@@ -16,7 +16,7 @@ public class Main {
                 "ourselves", "you", "your", "yours", "yourself", "yourselves", "he", "him", "his", "himself", "she", "her", "hers", "herself", "it", "its", "itself",
                 "they", "them", "their", "theirs", "themselves", "this", "that", "these", "those", "who", "whom", "whose", "which", "what", "whoever", "whomever",
                 "whichever", "whatever", "and", "but", "or", "nor", "for", "yet", "so", "although", "because", "since", "unless", "until", "while", "where", "when", "after",
-                "before", "if", "though", "as", "than", "that", "though", "till", "unless", "until", "when", "whenever", "where", "whereas", "wherever", "whether", "while"
+                "before", "if", "though", "as", "than", "that", "though", "till", "unless", "until", "when", "whenever", "where", "whereas", "wherever", "whether", "while", "s"
                 )));
 
         System.out.println("excluding words count : " + wordsToExclude.size());
@@ -39,9 +39,15 @@ public class Main {
             //TODO: This is counting "s" from words like one's, artist's, man's etc. Need to fix this.
             // One solution is to add the string "s" in wordsToExclude set. But this is not a good solution.
             // Another solution is to remove the apostrophe and club such words as ones, artists while processing the file. But this will change the meaning of the word.
-            // Need to find a better solution.
+            // Need to find a better solution. For now, I'm going with the first solution.
             System.out.println("b. Top 5 most frequent words with counts: ");
             topFiveWords.forEach(entry -> System.out.println(entry.getKey() + ": " + entry.getValue()));
+
+            // Using TreeSet to get the unique words in alphabetical order
+            Set<String> uniqueWordsInAlphabeticalOrder = new TreeSet<>(words);
+            System.out.println("uniqueWordsInAlphabeticalOrder count : " + uniqueWordsInAlphabeticalOrder.size());
+            System.out.println("c. Alphabetically sorted list of all unique words (excluding the filtered words): ");
+            uniqueWordsInAlphabeticalOrder.forEach(System.out::println);
 
         } catch (Exception e) {
             System.out.println("Error reading file: " + e.getMessage());
@@ -77,11 +83,11 @@ public class Main {
         // Read the file line by line and append to fileText
         while ((line = reader.readLine()) != null) {
             fileText.append(line);
+            fileText.append(" ");
         }
 
         // Split the fileText into words and convert to lowercase
         String[] words = fileText.toString().toLowerCase().split("[^a-zA-Z]+");
-        ;
 
         // Filter out the words that are in the wordsToExclude set
         List<String> filteredWords = Arrays.stream(words)
