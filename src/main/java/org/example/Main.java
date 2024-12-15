@@ -1,9 +1,6 @@
 package org.example;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 
 public class Main {
@@ -49,10 +46,25 @@ public class Main {
             System.out.println("c. Alphabetically sorted list of all unique words (excluding the filtered words): ");
             uniqueWordsInAlphabeticalOrder.forEach(System.out::println);
 
+            //saving output to a file
+            saveOutput(wordCount, topFiveWords, uniqueWordsInAlphabeticalOrder);
         } catch (Exception e) {
             System.out.println("Error reading file: " + e.getMessage());
         }
 
+    }
+
+    private static void saveOutput(int wordCount, List<Map.Entry<String, Integer>> topFiveWords, Set<String> uniqueWordsInAlphabeticalOrder) {
+        try {
+            PrintWriter writer = new PrintWriter("kotlinTestOutput.txt");
+            writer.println("a. Total word count: " + wordCount);
+            writer.println("b. Top 5 most frequent words with counts: ");
+            topFiveWords.forEach(entry -> writer.println(entry.getKey() + ": " + entry.getValue()));
+            writer.println("c. Alphabetically sorted list of all unique words (excluding the filtered words): ");
+            uniqueWordsInAlphabeticalOrder.forEach(writer::println);
+        } catch (FileNotFoundException e) {
+            System.out.println("Error while saving output: " + e.getMessage());
+        }
     }
 
     //calculate top 5 words based on the frequency by sorting the list of words
