@@ -17,12 +17,11 @@ public class Main {
                 )));
 
         System.out.println("excluding words count : " + wordsToExclude.size());
-        System.out.println(file.exists());
 
-
-//    Total word count (excluding the filtered words).
-//    b. Top 5 most frequent words with counts (excluding the filtered words).
-//    c. Alphabetically sorted list of all unique words (excluding the filtered words).
+/*   Output Reference
+    a. Total word count (excluding the filtered words).
+    b. Top 5 most frequent words with counts (excluding the filtered words).
+    c. Alphabetically sorted list of all unique words (excluding the filtered words). */
 
         try {
             List<String> words = readFileAndProcess(file, wordsToExclude);
@@ -48,7 +47,7 @@ public class Main {
 
             //saving output to a file
             saveOutput(wordCount, topFiveWords, uniqueWordsInAlphabeticalOrder);
-        } catch (Exception e) {
+        } catch (IOException e) {
             System.out.println("Error reading file: " + e.getMessage());
         }
 
@@ -62,6 +61,7 @@ public class Main {
             topFiveWords.forEach(entry -> writer.println(entry.getKey() + ": " + entry.getValue()));
             writer.println("c. Alphabetically sorted list of all unique words (excluding the filtered words): ");
             uniqueWordsInAlphabeticalOrder.forEach(writer::println);
+            writer.close();
         } catch (FileNotFoundException e) {
             System.out.println("Error while saving output: " + e.getMessage());
         }
