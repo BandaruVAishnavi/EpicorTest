@@ -12,16 +12,17 @@ import java.util.Set;
 public class Main {
     public static void main(String[] args) {
         File file = new File("src/main/resources/moby.txt");
-        Set<String> wordsToExclude = new HashSet<>(Arrays.asList("a", "an", "the", "in", "on", "at", "to", "by", "for", "with", "about", "as", "of", "from", "up", "down",
-                "over", "under", "after", "before", "during", "between", "and", "but", "or", "nor", "so", "yet", "he", "she", "it", "they",
-                "them", "his", "her", "its", "their", "in", "on", "at", "he", "she", "it", "or", "but", "am", "was", "were", "is", "are",
-                "will", "would", "shall", "should", "can", "could", "may", "might", "do", "does", "did", "done", "has", "have", "had", "been", "being", "to",
-                "from", "of", "for", "with", "by", "as", "in", "into", "onto", "upon", "out", "over", "under", "above", "below", "between", "among", "through",
-                "across", "against", "along", "around", "at", "before", "behind", "beneath", "beside", "besides", "beyond", "during", "inside", "outside", "since",
-                "throughout", "till", "until", "within", "without", "about", "against", "among", "around", "before", "behind", "below", "beneath",
-                "beside", "between", "beyond", "during", "inside", "outside", "through", "throughout", "under", "underneath", "upon", "with", "within", "without",
-                "above", "across", "after"
-        ));
+        Set<String> wordsToExclude = new HashSet<>((Arrays.asList("a", "an", "the", "about", "above", "across", "after", "against", "along", "among", "around",
+                "at", "before", "behind", "below", "beneath", "beside", "besides", "between", "beyond", "by", "despite", "down", "during", "except", "for", "from",
+                "in", "inside", "into", "like", "near", "of", "off", "on", "onto", "out", "outside", "over", "past", "since", "through", "throughout", "till",
+                "to", "toward", "under", "underneath", "until", "up", "upon", "with", "within", "without", "I", "me", "my", "mine", "myself", "we", "us", "our", "ours",
+                "ourselves", "you", "your", "yours", "yourself", "yourselves", "he", "him", "his", "himself", "she", "her", "hers", "herself", "it", "its", "itself",
+                "they", "them", "their", "theirs", "themselves", "this", "that", "these", "those", "who", "whom", "whose", "which", "what", "whoever", "whomever",
+                "whichever", "whatever", "and", "but", "or", "nor", "for", "yet", "so", "although", "because", "since", "unless", "until", "while", "where", "when", "after",
+                "before", "if", "though", "as", "than", "that", "though", "till", "unless", "until", "when", "whenever", "where", "whereas", "wherever", "whether", "while"
+                )));
+
+        System.out.println("words count : " + wordsToExclude.size());
         System.out.println(file.exists());
 
 
